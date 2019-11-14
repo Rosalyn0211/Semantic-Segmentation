@@ -12,9 +12,25 @@
     - 在轻量级与速度的基础上，准确率有待提高。
     
 ### Depthwise separable convolution
-
+ - Depthwise separable convolution = depthwise conv + pointwise conv  
+ 
+ ![conv](images/conv.png)  
+ 
+ ![conv](images/dw.png)  
+  
+ ![conv](images/vs.png)  
+ 
+ - 减少了计算次数及参数
+ 
 ### 全局超参数
-
+ - 宽度乘数 α：为了构建更小和更少计算量的网络，作者引入了宽度乘数α ，作用是改变输入输出通道数，减少特征图数量，让网络变瘦。其中，α 取值是0~1，应用宽度乘数可以进一步减少计算量，大约有 α^2 的优化空间。
+ - 分辨率乘数ρ:分辨率乘数用来改变输入数据层的分辨率，同样也能减少参数。
 ### 网络结构
-
+ ![conv](images/mobilenet.png)    
+ 
+MobileNets结构建立在上述深度可分解卷积中（只有第一层是标准卷积）。该网络允许算法探索网络拓扑，找到一个适合的良好网络。除了最后的全连接层，所有层后面跟了batchnorm和ReLU，最终输入到softmax进行分类。
+ 
 ### 训练策略
+ - RMSprop
+ - less regularization and data augmentation(小网络难以过拟合)
+ 
