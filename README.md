@@ -82,19 +82,20 @@ U-net与FCN的不同在于，U-net的上采样依然有大量的通道，这使�
 三种不同模式是对卷积核移动范围的不同限制。  
  - full conv
 
-![image](images/fullconv.png)   
+<img width="300" height="300" src="images/fullconv.png"/>
 
 橙色部分为image, 蓝色部分为filter。full模式的意思是，从filter和image刚相交开始做卷积，白色部分为填0。filter的运动范围如图所示。  
 
  - same conv  
- 
-![image](images/sameconv.png)    
+   
+<img width="300" height="300" src="images/sameconv.png"/>
 
 当filter的中心(K)与image的边角重合时，开始做卷积运算，可见filter的运动范围比full模式小了一圈。注意：这里的same还有一个意思，卷积之后输出的feature map尺寸保持不变(相对于输入图片)。当然，same模式不代表完全输入输出尺寸一样，也跟卷积核的步长有关系。same模式也是最常见的模式，因为这种模式可以在前向传播的过程中让特征图的大小保持不变，调参师不需要精准计算其尺寸变化(因为尺寸根本就没变化)。  
 
  - valid conv  
  
- ![image](images/validconv.png)  
+ <img width="300" height="300" src="images/validconv.png"/>
+
  
  当filter全部在image里面的时候，进行卷积运算，可见filter的移动范围较same更小了。
 
@@ -160,7 +161,7 @@ MobileNets结构建立在上述深度可分解卷积中（只有第一层是标�
 ### Inverted Residuals
 ![image](images/Mv2_2.png)  
 
-![image](images/Mv2_3.png)  
+<img width="400" height="400" src="images/Mv2_3.png"/>
 
 在Inverted residual 结构中，bottleneck放在了首尾，中间则通过expand来扩展了channel。
 具体的Inverted residual的结构参见下图，input首先经过expand layer，channel扩展为原来的6倍，然后再经过depthwise convolution layer和linear layer，恢复为原来的大小。在depthwise convolution layer首先将channel扩展，增加了冗余，以便后边的Depthwise Separable Convolutions能够选择到包含manifold of interest的channel。
